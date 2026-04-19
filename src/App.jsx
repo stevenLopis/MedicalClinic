@@ -106,7 +106,7 @@ const styles = `
     display:flex;align-items:center;justify-content:center;font-size:1.35rem;
     box-shadow:0 0 0 1px rgba(0,194,122,0.3),0 8px 24px rgba(0,194,122,0.45);
     transition:transform 0.4s var(--ease-spring),box-shadow 0.3s;
-    position:relative;overflow:hidden;
+    position:relative;overflow:hidden;flex-shrink:0;
   }
   .nav-logo-mark::after{
     content:'';position:absolute;inset:0;
@@ -827,7 +827,10 @@ const styles = `
 
   .footer{background:linear-gradient(160deg,#060210,#080B14,#060A1E);color:rgba(255,255,255,0.38)}
   .footer-top{padding:5rem 3rem 3rem}
-  .footer-grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem}
+  .footer-grid{
+    max-width:1280px;margin:0 auto;
+    display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;
+  }
   .footer-brand-p{font-size:0.86rem;line-height:1.9;margin-top:1rem;max-width:285px;color:rgba(255,255,255,0.3)}
   .footer-col-h{font-family:'JetBrains Mono',monospace;font-size:0.61rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--emerald2);font-weight:500;margin-bottom:1.4rem}
   .footer-lnk{display:block;font-size:0.86rem;color:rgba(255,255,255,0.32);margin-bottom:0.65rem;transition:all 0.25s;text-decoration:none}
@@ -838,7 +841,7 @@ const styles = `
     padding:1.7rem 0;display:flex;justify-content:space-between;align-items:center;
     font-size:0.78rem;flex-wrap:wrap;gap:1rem;
   }
-  .accred-row{display:flex;align-items:center;gap:1.6rem}
+  .accred-row{display:flex;align-items:center;gap:1.6rem;flex-wrap:wrap}
   .accred-pill{display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:0.61rem;color:rgba(255,255,255,0.24);text-transform:uppercase;letter-spacing:0.1em}
   .accred-dot{width:5px;height:5px;background:var(--emerald);border-radius:50%;animation:pulse 2.5s ease-in-out infinite}
 
@@ -853,17 +856,47 @@ const styles = `
   @media(max-width:768px){
     .nav-center{display:none} .nav-book{display:none}
     .hamburger{display:flex}
+
     .hero{overflow-x:hidden;width:100%;max-width:100vw;}
     .hero-content{grid-template-columns:1fr;padding:3rem 1.5rem;width:100%;max-width:100%;}
     .hero-card-wrap{display:none}
+
     .section{padding:4rem 1.5rem}
     .trust-bar{padding:1.2rem 1.5rem} .trust-div{display:none}
+
     .pkg-grid{grid-template-columns:1fr}
     .det-hero{grid-template-columns:1fr} .det-cols{grid-template-columns:1fr}
     .contact-grid{grid-template-columns:1fr}
-    .footer-grid{grid-template-columns:1fr 1fr}
+
+    /* ── FOOTER FIX: single column on mobile ── */
+    .footer-top{padding:3rem 1.5rem 2rem}
+    .footer-grid{
+      grid-template-columns:1fr;
+      gap:2rem;
+    }
+    .footer-brand-p{max-width:100%}
+    .footer-bottom-wrap{padding:0 1.5rem}
+    .footer-bottom{
+      flex-direction:column;
+      align-items:flex-start;
+      gap:1rem;
+      font-size:0.72rem;
+    }
+    .accred-row{gap:1rem}
+
+    /* ── SOCIAL BAR FIX ── */
+    .social-bar{padding:1.2rem 1.5rem}
+    .social-inner{flex-direction:column;align-items:flex-start;gap:0.75rem}
+
+    /* ── PATIENT INFO FIX: single column on mobile ── */
+    .patient-info-grid{
+      grid-template-columns:1fr !important;
+      gap:2.5rem !important;
+    }
+
+    /* ── OTHER FIXES ── */
     .why-grid{grid-template-columns:1fr 1fr}
-    .social-bar{padding:1.2rem 1.5rem} .navbar{padding:0 1.5rem}
+    .navbar{padding:0 1.5rem}
     .srv-grid{grid-template-columns:1fr}
     .dept-doc-panel{padding:1.6rem}
     .portal-modal{padding:2rem}
@@ -873,7 +906,21 @@ const styles = `
     .hero-btns{flex-direction:column}
     .btn-hp,.btn-ho{width:100%;justify-content:center}
     .ins-grid{grid-template-columns:repeat(2,1fr)}
+    .det-info{padding:1.8rem}
+    .det-name{font-size:2rem}
+    .det-meta{grid-template-columns:1fr 1fr 1fr}
+    .s-hdr{flex-direction:column;align-items:flex-start;gap:1rem}
   }
+
+  @media(max-width:480px){
+    .why-grid{grid-template-columns:1fr}
+    .hero-stats{flex-wrap:wrap;gap:1.5rem}
+    .hstat-n{font-size:2.2rem}
+    .ins-grid{grid-template-columns:repeat(2,1fr)}
+    .det-meta{gap:0.5rem}
+    .det-meta-val{font-size:1.6rem}
+  }
+
   @media(min-width:769px){
     .hamburger{display:none !important} .mob-menu{display:none !important}
   }
@@ -1724,7 +1771,8 @@ function PatientInfoPage({onPortalOpen}){
   return(
     <section className="section" style={{paddingTop:"9rem"}}>
       <div className="s-inner">
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"4rem"}}>
+        {/* KEY FIX: Use className for responsive grid */}
+        <div className="patient-info-grid" style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"4rem"}}>
           <div>
             <div className="s-ey">FAQ</div>
             <h2 className="s-title" style={{marginBottom:"0.8rem"}}>Patient Information</h2>
