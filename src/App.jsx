@@ -42,7 +42,34 @@ const styles = `
   }
   body { font-family:'Outfit',sans-serif; background:var(--pearl); color:var(--g800); -webkit-font-smoothing:antialiased; }
   ::-webkit-scrollbar{width:5px} ::-webkit-scrollbar-track{background:var(--g100)} ::-webkit-scrollbar-thumb{background:linear-gradient(var(--emerald),var(--orchid));border-radius:10px}
+export default function App() {
+  return (
+    <div
+      style={{
+        width: "100%",
+        maxWidth: "100%",
+        overflowX: "hidden",
+      }}
+    >
+      {/* INNER WRAPPER */}
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "100%",
+          overflowX: "hidden",
+        }}
+      >
 
+        {/* 👉 EVERYTHING goes inside this */}
+        {/* Navbar */}
+        {/* Hero */}
+        {/* Sections */}
+        {/* Footer */}
+
+      </div>
+    </div>
+  );
+}
   /* ── ANIMATIONS ── */
   @keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
   @keyframes fadeIn{from{opacity:0}to{opacity:1}}
