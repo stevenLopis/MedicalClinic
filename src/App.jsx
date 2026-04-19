@@ -3,9 +3,8 @@ import { useState, useEffect, useRef } from "react";
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
   :root {
-    /* ── BOLD NEW PALETTE ── */
     --ink:     #080B14;
     --ink2:    #0D1224;
     --emerald: #00C27A;
@@ -23,15 +22,12 @@ const styles = `
     --orchid:  #9333EA;
     --orchid2: #C084FC;
     --orchid3: #F5F3FF;
-    --pearl:   #F8F7F4;
+    --pearl:   #FAF3DD;
     --white:   #FFFFFF;
     --g50:#F9FAFB; --g100:#F1F5F9; --g200:#E2E8F0; --g300:#CBD5E1;
     --g400:#94A3B8; --g500:#64748B; --g600:#475569; --g700:#334155; --g800:#1E293B;
-
-    /* ── NAVBAR GRADIENT (electric indigo → sapphire) ── */
     --nav-from:#1A0533;
     --nav-to:  #0A1A4F;
-
     --sh-sm:0 2px 12px rgba(0,0,0,0.08);
     --sh-md:0 12px 40px rgba(0,0,0,0.12);
     --sh-lg:0 28px 70px rgba(0,0,0,0.18);
@@ -40,10 +36,9 @@ const styles = `
     --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
     --ease-smooth:cubic-bezier(0.4,0,0.2,1);
   }
-  body { font-family:'Outfit',sans-serif; background:var(--pearl); color:var(--g800); -webkit-font-smoothing:antialiased; }
+  body { font-family:'Outfit',sans-serif; background:var(--pearl); color:var(--g800); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
   ::-webkit-scrollbar{width:5px} ::-webkit-scrollbar-track{background:var(--g100)} ::-webkit-scrollbar-thumb{background:linear-gradient(var(--emerald),var(--orchid));border-radius:10px}
 
-  /* ── ANIMATIONS ── */
   @keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
   @keyframes fadeIn{from{opacity:0}to{opacity:1}}
   @keyframes scaleIn{from{opacity:0;transform:scale(0.86)}to{opacity:1;transform:scale(1)}}
@@ -79,7 +74,6 @@ const styles = `
   .d1{animation-delay:.06s}.d2{animation-delay:.15s}.d3{animation-delay:.24s}
   .d4{animation-delay:.33s}.d5{animation-delay:.42s}.d6{animation-delay:.51s}
 
-  /* ── CURSOR ── */
   *{cursor:default}
   a,button,[role="button"],.nav-link,.footer-lnk,.dept-card,.doc-card,.why-card,
   .pkg-card,.srv-card,.ins-card,.info-tile,.mob-link,.filter-pill,.btn-ghost,
@@ -87,7 +81,6 @@ const styles = `
   .portal-close-btn,.dept-close,.detail-back,.pkg-btn,.soc-btn,.doc-soc-btn,
   .faq-item,.faq-q,.hero-eyebrow{cursor:pointer !important}
 
-  /* ── NAVBAR — dark jewel-tone gradient, glowing emerald accents ── */
   .navbar{
     position:fixed;top:0;left:0;right:0;z-index:1000;height:76px;
     padding:0 3rem;display:flex;align-items:center;justify-content:space-between;
@@ -197,18 +190,18 @@ const styles = `
     color:var(--ink);border-radius:12px;font-size:1rem;font-weight:800;border:none;
   }
 
-  /* ── HERO — deep space with electric emerald ── */
+  /* ── HERO ── */
   .hero{
     min-height:100vh;position:relative;overflow:hidden;
     display:flex;align-items:center;padding-top:76px;
     background:linear-gradient(145deg,#06020F 0%,#080B14 40%,#030920 70%,#050714 100%);
+    width:100%;max-width:100vw;
   }
   .hero-bg{
     position:absolute;inset:0;z-index:0;
     background-image:url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=1800&q=80');
     background-size:cover;background-position:center 30%;opacity:0.07;
   }
-  /* Vivid glowing mesh */
   .hero-mesh{
     position:absolute;inset:0;z-index:1;
     background:
@@ -224,7 +217,6 @@ const styles = `
     background-size:72px 72px;
   }
 
-  /* Huge glowing orbs */
   .hero-orb{position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none;z-index:1;animation:orbMove 10s ease-in-out infinite}
   .hero-orb-1{width:600px;height:600px;background:radial-gradient(circle,rgba(0,194,122,0.22),transparent 70%);top:-150px;right:-50px;animation-delay:0s}
   .hero-orb-2{width:400px;height:400px;background:radial-gradient(circle,rgba(147,51,234,0.18),transparent 70%);bottom:-80px;left:-80px;animation-delay:4s}
@@ -299,7 +291,6 @@ const styles = `
   }
   .hstat-l{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:rgba(255,255,255,0.28);text-transform:uppercase;letter-spacing:0.16em;margin-top:7px}
 
-  /* Floating hero card */
   .hero-img-card{
     border-radius:28px;overflow:hidden;position:relative;
     box-shadow:0 60px 110px rgba(0,0,0,0.7),0 0 0 1px rgba(0,194,122,0.12),var(--sh-glow);
@@ -342,7 +333,6 @@ const styles = `
   .hero-float-sub{font-size:0.73rem;color:var(--emerald2);font-weight:600;margin-top:5px}
   .hero-card-wrap{position:relative}
 
-  /* ── TRUST BAR — glassy dark strip ── */
   .trust-bar{
     background:linear-gradient(90deg,#0D1224,#080B14,#0D1224);
     padding:1.4rem 3rem;border-top:1px solid rgba(0,194,122,0.12);
@@ -356,7 +346,6 @@ const styles = `
   .trust-item:hover{color:var(--emerald2);transform:translateY(-1px)}
   .trust-div{width:1px;height:28px;background:rgba(255,255,255,0.06)}
 
-  /* ── SECTIONS ── */
   .section{padding:7rem 3rem}
   .s-inner{max-width:1280px;margin:0 auto}
   .s-ey{
@@ -392,7 +381,6 @@ const styles = `
   .btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(0,194,122,0.55)}
   .btn-primary span{position:relative;z-index:1}
 
-  /* ── WHY CARDS — rich color-coded with vivid accents ── */
   .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
   .why-card{
     border-radius:24px;padding:2.5rem;border:1.5px solid var(--g200);
@@ -417,7 +405,6 @@ const styles = `
   .why-title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:var(--ink);margin-bottom:0.65rem}
   .why-desc{font-size:0.84rem;color:var(--g500);line-height:1.85}
 
-  /* ── DEPARTMENTS ── */
   .dept-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.3rem}
   .dept-card{
     background:white;border-radius:24px;padding:2rem;border:1.5px solid var(--g200);
@@ -460,7 +447,6 @@ const styles = `
   }
   .dept-close:hover{background:var(--crimson3);color:var(--crimson);transform:rotate(90deg)}
 
-  /* ── DOCTORS ── */
   .doc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.8rem}
   .doc-card{
     background:white;border-radius:26px;overflow:hidden;border:1.5px solid var(--g200);
@@ -500,7 +486,6 @@ const styles = `
   .doc-stars{color:var(--amber);font-size:0.8rem;letter-spacing:1px}
   .doc-rnum{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--g400)}
 
-  /* ── FILTER PILLS ── */
   .filter-bar{display:flex;gap:0.65rem;flex-wrap:wrap;margin-bottom:2.5rem}
   .filter-pill{
     padding:0.48rem 1.25rem;border-radius:100px;font-size:0.82rem;font-weight:500;
@@ -513,7 +498,6 @@ const styles = `
     box-shadow:0 6px 18px rgba(0,194,122,0.38);
   }
 
-  /* ── DETAIL ── */
   .detail-back{
     display:inline-flex;align-items:center;gap:9px;color:var(--emerald);
     font-size:0.875rem;font-weight:600;margin-bottom:2rem;
@@ -581,7 +565,6 @@ const styles = `
   .rev-stars{color:var(--amber);font-size:0.8rem;margin-bottom:0.48rem}
   .rev-txt{font-size:0.86rem;color:var(--g500);line-height:1.8}
 
-  /* ── PACKAGES — vivid tiered look ── */
   .pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;align-items:stretch}
   .pkg-card{
     border-radius:32px;padding:2.8rem;position:relative;overflow:hidden;
@@ -651,7 +634,6 @@ const styles = `
   .pkg-btn:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 20px 48px rgba(0,194,122,0.6)}
   .pkg-btn span{position:relative;z-index:1}
 
-  /* ── SERVICES ── */
   .srv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.8rem}
   .srv-card{
     background:white;border-radius:28px;padding:2.3rem;border:1.5px solid var(--g200);
@@ -675,7 +657,6 @@ const styles = `
     background:var(--emerald3);color:var(--emerald);
   }
 
-  /* ── FAQ — hover reveal ── */
   .faq-item{border-bottom:1px solid var(--g200);transition:background 0.2s;position:relative;cursor:pointer}
   .faq-q{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 0;gap:1rem;cursor:pointer}
   .faq-qt{font-size:0.94rem;font-weight:600;color:var(--ink);transition:color 0.22s}
@@ -698,7 +679,6 @@ const styles = `
   }
   .faq-item:hover .faq-ans{max-height:260px;opacity:1;padding-bottom:1.5rem}
 
-  /* ── INSURANCE ── */
   .ins-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.9rem;margin-top:1.8rem}
   .ins-card{
     background:var(--g50);border-radius:15px;padding:1.2rem;text-align:center;
@@ -708,7 +688,6 @@ const styles = `
   .ins-logo{font-size:1.7rem;margin-bottom:0.44rem}
   .ins-name{font-size:0.68rem;font-weight:600;color:var(--ink)}
 
-  /* ── CONTACT ── */
   .contact-grid{display:grid;grid-template-columns:1.2fr 0.8fr;gap:2rem}
   .form-card{
     background:white;border-radius:32px;padding:2.8rem;
@@ -756,7 +735,6 @@ const styles = `
   .map-wrap{border-radius:22px;overflow:hidden;min-height:244px;border:2px solid var(--g200)}
   .map-wrap iframe{width:100%;height:244px;border:0;display:block}
 
-  /* ── PATIENT PORTAL MODAL ── */
   .portal-overlay{
     position:fixed;inset:0;z-index:2000;
     background:rgba(6,2,15,0.82);backdrop-filter:blur(16px);
@@ -826,7 +804,6 @@ const styles = `
   }
   .portal-register:hover{border-color:var(--emerald);color:var(--emerald);background:var(--emerald3)}
 
-  /* ── SOCIAL BAR — dark with emerald glow ── */
   .social-bar{
     background:linear-gradient(90deg,#080B14,#0D1224,#080B14);
     padding:1.2rem 3rem;border-top:1px solid rgba(0,194,122,0.1);
@@ -848,7 +825,6 @@ const styles = `
   .soc-li:hover{background:#0A66C2;border-color:#0A66C2;color:white}
   .soc-wa:hover{background:#25D366;border-color:#25D366;color:white}
 
-  /* ── FOOTER — deep space ── */
   .footer{background:linear-gradient(160deg,#060210,#080B14,#060A1E);color:rgba(255,255,255,0.38)}
   .footer-top{padding:5rem 3rem 3rem}
   .footer-grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem}
@@ -866,24 +842,19 @@ const styles = `
   .accred-pill{display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:0.61rem;color:rgba(255,255,255,0.24);text-transform:uppercase;letter-spacing:0.1em}
   .accred-dot{width:5px;height:5px;background:var(--emerald);border-radius:50%;animation:pulse 2.5s ease-in-out infinite}
 
-  /* ── PAGE TRANSITION ── */
   .page-enter{animation:fadeUp 0.48s var(--ease-spring)}
 
-  /* ── SECTION BACKGROUNDS — vibrant alternating ── */
   .sec-white{background:white}
   .sec-pearl{background:var(--pearl)}
-  .sec-dark{
-    background:linear-gradient(145deg,#06020F 0%,#080B14 50%,#030920 100%);
-  }
-  .sec-emerald{
-    background:linear-gradient(145deg,#ECFDF5,#F0FDF9,#F8FFF7);
-  }
+  .sec-dark{background:linear-gradient(145deg,#06020F 0%,#080B14 50%,#030920 100%)}
+  .sec-emerald{background:linear-gradient(145deg,#ECFDF5,#F0FDF9,#F8FFF7)}
 
   /* ── RESPONSIVE ── */
   @media(max-width:768px){
     .nav-center{display:none} .nav-book{display:none}
     .hamburger{display:flex}
-    .hero-content{grid-template-columns:1fr;padding:3rem 1.5rem}
+    .hero{overflow-x:hidden;width:100%;max-width:100vw;}
+    .hero-content{grid-template-columns:1fr;padding:3rem 1.5rem;width:100%;max-width:100%;}
     .hero-card-wrap{display:none}
     .section{padding:4rem 1.5rem}
     .trust-bar{padding:1.2rem 1.5rem} .trust-div{display:none}
@@ -896,6 +867,12 @@ const styles = `
     .srv-grid{grid-template-columns:1fr}
     .dept-doc-panel{padding:1.6rem}
     .portal-modal{padding:2rem}
+    .form-row{grid-template-columns:1fr}
+    .hero-stats{gap:1.5rem}
+    .hero-h1{font-size:clamp(2.8rem,10vw,4rem)}
+    .hero-btns{flex-direction:column}
+    .btn-hp,.btn-ho{width:100%;justify-content:center}
+    .ins-grid{grid-template-columns:repeat(2,1fr)}
   }
   @media(min-width:769px){
     .hamburger{display:none !important} .mob-menu{display:none !important}
@@ -1331,7 +1308,7 @@ function HomePage({navigate}){
         </div>
       </div>
 
-      {/* WHY US — white section */}
+      {/* WHY US */}
       <section className="section sec-white">
         <div className="s-inner">
           <div className="s-hdr">
@@ -1362,7 +1339,7 @@ function HomePage({navigate}){
         </div>
       </section>
 
-      {/* DEPARTMENTS PREVIEW — soft emerald tint */}
+      {/* DEPARTMENTS PREVIEW */}
       <section className="section sec-emerald">
         <div className="s-inner">
           <div style={{textAlign:"center",marginBottom:"2.8rem"}}>
@@ -1392,7 +1369,7 @@ function HomePage({navigate}){
         </div>
       </section>
 
-      {/* DOCTORS PREVIEW — white */}
+      {/* DOCTORS PREVIEW */}
       <section className="section sec-white">
         <div className="s-inner">
           <div className="s-hdr">
@@ -1413,7 +1390,7 @@ function HomePage({navigate}){
         </div>
       </section>
 
-      {/* CTA BANNER — deep dark with emerald */}
+      {/* CTA BANNER */}
       <section style={{
         background:"linear-gradient(145deg,#06020F 0%,#080B14 50%,#030A22 100%)",
         padding:"6rem 3rem",position:"relative",overflow:"hidden",
