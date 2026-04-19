@@ -22,7 +22,7 @@ const styles = `
     --orchid:  #9333EA;
     --orchid2: #C084FC;
     --orchid3: #F5F3FF;
-    --pearl:   #FAF3DD;
+    --pearl:   #F8F6F0;
     --white:   #FFFFFF;
     --g50:#F9FAFB; --g100:#F1F5F9; --g200:#E2E8F0; --g300:#CBD5E1;
     --g400:#94A3B8; --g500:#64748B; --g600:#475569; --g700:#334155; --g800:#1E293B;
