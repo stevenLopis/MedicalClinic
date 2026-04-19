@@ -23,7 +23,7 @@ const styles = `
     --orchid:  #9333EA;
     --orchid2: #C084FC;
     --orchid3: #F5F3FF;
-    --pearl:   #FFF7E6;
+    --pearl:   #F8F7F4;
     --white:   #FFFFFF;
     --g50:#F9FAFB; --g100:#F1F5F9; --g200:#E2E8F0; --g300:#CBD5E1;
     --g400:#94A3B8; --g500:#64748B; --g600:#475569; --g700:#334155; --g800:#1E293B;
@@ -42,34 +42,7 @@ const styles = `
   }
   body { font-family:'Outfit',sans-serif; background:var(--pearl); color:var(--g800); -webkit-font-smoothing:antialiased; }
   ::-webkit-scrollbar{width:5px} ::-webkit-scrollbar-track{background:var(--g100)} ::-webkit-scrollbar-thumb{background:linear-gradient(var(--emerald),var(--orchid));border-radius:10px}
-export default function App() {
-  return (
-    <div
-      style={{
-        width: "100%",
-        maxWidth: "100%",
-        overflowX: "hidden",
-      }}
-    >
-      {/* INNER WRAPPER */}
-      <div
-        style={{
-          width: "100%",
-          maxWidth: "100%",
-          overflowX: "hidden",
-        }}
-      >
 
-        {/* 👉 EVERYTHING goes inside this */}
-        {/* Navbar */}
-        {/* Hero */}
-        {/* Sections */}
-        {/* Footer */}
-
-      </div>
-    </div>
-  );
-}
   /* ── ANIMATIONS ── */
   @keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
   @keyframes fadeIn{from{opacity:0}to{opacity:1}}
